@@ -1,0 +1,4 @@
+services:
+	- App\Router\RouterFactory::createRouter
+	- App\Components\LoremForm
+	- App\Components\TransformForm
