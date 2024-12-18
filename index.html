@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="https://img.icons8.com/color/48/undefined/dog-footprint.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <title>Fill text generator</title>
+    <style>
+        #text,
+        #transformed-text {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container mx-auto">
+        <h1>Dummy text generator</h1>
+        <hr>
+        <div>
+            <label for="textLength">text length</label>
+            <input type="number" name="textLength" id="textLength" required value="50">
+
+            <input type="submit" value="Generate" id="generate" class="bg-green button white">
+        </div>
+
+        <div id="lorem" style="display: none;">
+            <label for="text">Your fake text (click to copy or edit)</label>
+            <textarea id="text" style="height: 200px;"></textarea>
+        </div>
+
+        <div id="transformForm" style="display: none;">
+            <label for="operation">Operation</label>
+            <select name="operation" id="operation" required>
+                <option value="">-vyberte-</option>
+                <option value="toUpperCase" selected="">TO UPPER CASE</option>
+                <option value="toLowerCase">to lower case</option>
+                <option value="toCamelCase">to Camel Case</option>
+                <option value="allWordsCapitalized">All Words Capitalized</option>
+                <option value="reverseText">reversed text</option>
+                <option value="toUnderscored">to_under_scored</option>
+                <option value="toHyphenized">to-hyphenized</option>
+                <option value="truncate">remove spaces</option>
+            </select>
+            <input type="submit" value="transform" id="transform" class="bg-orange button white">
+        </div>
+
+        <div id="transformedTextDiv" style="display: none;">
+            <label for="transformedText">Your transformed text (click to copy)</label>
+            <textarea id="transformedText" style="word-wrap: break-word; display: none; height: 200px;"></textarea>
+        </div>
+    </main>
+
+    <script src="js/strings.js"></script>
+    <script src="js/lorem.js"></script>
+    <script src="js/copy.js"></script>
+    <script>
+        document.getElementById('generate').onclick = () => {
+            let textLength = document.getElementById('textLength').value
+            document.getElementById('transformForm').style.display = 'block'
+            document.getElementById('lorem').style.display = 'block'
+            document.getElementById('text').textContent = Strings.getLorem(lorem, textLength)
+        }
+
+        document.getElementById('transform').onclick = () => {
+            let operation = document.getElementById('operation').value
+            let textToTransform = document.getElementById('text').textContent
+            document.getElementById('transformedTextDiv').style.display = 'block'
+            document.getElementById('transformedText').style.display = 'block'
+            document.getElementById('transformedText').textContent = Strings[operation](textToTransform)
+        }
+    </script>
+</body>
+
+</html>
